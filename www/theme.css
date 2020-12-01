@@ -1,0 +1,130 @@
+
+/* Header Collapse Button */
+.main-header .sidebar-toggle[role="button"] {
+    font-size: 45px;
+    float: none;
+    position: absolute;
+    bottom: 0%
+}
+.sidebar-toggle{
+  color: #000000 !important; 
+  background-color: #f9f9f9 !important;
+  margin-top: 50px;
+}
+
+
+.sidebar-toggle:hover {
+  background-color: #ecf0f5 !important;
+  margin-top: 50px;
+
+}
+
+/*fix the sidebar when scrolling*/
+#sidebarCollapsed {
+  /*position: fixed;*/
+  padding-top: 115px;
+}
+
+/*shift the about section box and the first box on the data tab*/
+#headerBox, #aboutBox {
+  padding-left: 0px !important;
+}
+/*fix the header when scrolling*/
+.main-header
+{
+  position:fixed;
+  width:100%;
+  background-color: white;
+
+}
+
+
+/*push the main content down to account for the fixed header*/
+.content {
+  padding-top: 115px;
+}
+
+
+/*increase size of logo*/
+.main-header .logo {
+  height:90px;
+  padding-top: 5px;
+  text-align: left;
+  font-size: 20px;
+  width: 375px !important;
+  /*border-top: 5px solid #fff;*/
+
+}
+
+
+.sidebar {
+  color: #000000;
+  /*background-color: #fff;*/
+}
+
+.main-sidebar {
+  /*margin-top: 55px;*/
+}
+.wrapper, .main-sidebar{
+  background-color: #ecf0f5 !important;
+}
+
+
+
+/*overwrite sidebar hyperlink font colors from shinydashboardPlus*/
+.sidebar a{
+  color: #3c8dbc !important;
+}
+
+.sidebar a:hover{
+  color: #68b3de !important;
+}
+
+div.tooltip {	
+    position: absolute;			
+    text-align: left;			
+    display: inline-block;
+    padding: 2px;				
+    font: 12px sans-serif;		
+    background: lightsteelblue;	
+    border: 0px;		
+    border-radius: 8px;			
+    pointer-events: none;			
+}
+
+.col-sm-12 {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+
+a[data-toggle="tab"] {
+    font-size: 20px;
+}
+
+#searchInputBar {
+  padding-left: 80px;
+  padding-top:20px;
+}
+
+#download_button {
+  margin-right:40px;
+  margin-top: 25px;
+}
+
+/* Splash Page */
+#splashLogo {
+  display:block;
+  margin-top: 15%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 12px;
+  width: 600px;
+}
+
+/* add space between the sidebar toggle button and other inputs*/
+.navbar-custom-menu
+{
+  margin-left: 100px !important;
+}
+
