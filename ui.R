@@ -62,6 +62,7 @@ shinyUI( tagList(fluidPage(
                                          label = "X Axis Effect Allele Frequency:",
                                          choices=c("")
                                        ),
+                                       checkboxInput(inputId = "log_x_input", label = "log scale x-axis",value=TRUE),
                                        radioGroupButtons(
                                          inputId = "y_input",
                                          label = "Y Axis Values:", 
@@ -72,7 +73,7 @@ shinyUI( tagList(fluidPage(
                                          label = "Beta/Odds Ratio From:", 
                                          choices = c("")
                                        ),
-                                       checkboxInput(inputId = "log_input", label = "log scale y-axis",value=TRUE)
+                                       checkboxInput(inputId = "log_y_input", label = "log scale y-axis",value=TRUE)
                                        
                                      )
                                      
@@ -118,6 +119,18 @@ shinyUI( tagList(fluidPage(
                                                min = 300, max = 2000, value = 1200, step =100),
                                    sliderInput("canvas_height", label = "canvas_height:",
                                                min = 300, max = 1000, value = 800, step =100)
+                                 ),
+                                 boxPlus(
+                                   status = "primary",
+                                   solidHeader = T,
+                                   closable = F,
+                                   width = 12,
+                                   title = "Grouping",
+                                   footer = "Only color variants in a certain range.",
+                                   sliderInput("x_axis_range", label = "X Axis:",
+                                               min = 0, max = 1, value = c(0,1), step =0.025),
+                                   sliderInput("y_axis_range", label = "Y Axis:",
+                                               min = -100, max = 100, value = c(-100,100), step =0.025)
                                  )
                                  
                                  
@@ -138,7 +151,7 @@ shinyUI( tagList(fluidPage(
             )
             
           ))
-        )
+    )
   ),
   tags$script(src = "https://d3js.org/d3.v6.js"),
   #https://github.com/tinker10/D3-Labeler

@@ -118,8 +118,11 @@ function update(data){
 
   //store the previous xScale for use in transitions
   var prev_xScale = xScale.copy();
-  //update the xScale
-  xScale.domain(
+   
+   //update the xScale. Use a logarithmic scale if log_x is true
+   if(data.log_x==true)
+   {
+     xScale = d3.scaleSymlog().domain(
       [
                  d3.min(points, function(d) {
                    return d[x_to_use];
@@ -128,8 +131,21 @@ function update(data){
                   return d[x_to_use];
                  })
                ]
-   )
-   .range([padding, canvas_width - padding *2]);
+    ).range([padding, canvas_width - padding *2]);
+   }
+   else
+   {
+     xScale = d3.scaleLinear().domain(
+      [
+                 d3.min(points, function(d) {
+                   return d[x_to_use];
+                 }),
+                 d3.max(points, function(d) {
+                  return d[x_to_use];
+                 })
+               ]
+    ).range([padding, canvas_width - padding *2]);
+   }
    
    //if no points were present on the plot then prev_xScale would have an NaN domain. So set to the current xScale if that is the case
    if(isNaN(prev_xScale.domain()[0]))
@@ -178,17 +194,29 @@ function update(data){
   //assign functionality to the searchbar
   document.getElementById("searchInputBar_search").onclick = function() {searchBarClick();};
   document.getElementById("searchInputBar_reset").onclick = function() {searchBarClick();};
-    
   
   var nodesarray=[];
   var labelsarray=[];
   var labels;
   var links;
+  
+  //temp variable to check if a point is in the selected axis range
+  var inRange=true;
 
   //create an array of nodes and labels from the points data
   for(var i=0; i<points.length; i++)
   {
-    nodesarray.push({name:points[i][variantIdField],r:5,x:xScale(points[i][x_to_use]),y:yScale(points[i][y_to_use]),pxv:prev_xScale(points[i][prev_x_to_use]),pyv:prev_yScale(points[i][prev_y_to_use])});
+    
+    if(points[i][x_to_use] < data.x_min || points[i][x_to_use] > data.x_max || points[i][y_to_use] < data.y_min || points[i][y_to_use] > data.y_max)
+    {
+      inRange = false;
+    }
+    else
+    {
+      inRange = true;
+    }
+        
+    nodesarray.push({name:points[i][variantIdField],r:5,x:xScale(points[i][x_to_use]),y:yScale(points[i][y_to_use]),pxv:prev_xScale(points[i][prev_x_to_use]),pyv:prev_yScale(points[i][prev_y_to_use]),inRange:inRange});
     
     labelsarray.push({x: xScale(points[i][x_to_use]), y: yScale(points[i][y_to_use]),pxv:prev_xScale(points[i][prev_x_to_use]),pyv:prev_yScale(points[i][prev_y_to_use]),xv:xScale(points[i][x_to_use]),yv:yScale(points[i][y_to_use]), name: points[i][variantIdField], width: 0.0, height: 0.0});
     
@@ -411,18 +439,6 @@ function updateAnnotations()
       .attr('r',function(d){
         return d.r
       })
-      .attr("fill", function(d,i){ 
-        var color;
-        for(var i =0 ;i<data.studies.length;i++)
-        {
-          if(data.studies[i][studies_gwas_id_for_color] === search(d.name,points)[data_gwas_id_for_color])
-          {
-            color = data.studies[i][color_gwas_field];
-          }
-        }
-        return  color;
-        
-      })
       .on("mouseover",function(d,i) {
         div.transition()
           .duration(200)
@@ -440,6 +456,30 @@ function updateAnnotations()
       });
       
     node = node.merge(entering_nodes);
+    
+    //update colors after merge
+    node.attr("fill", function(d,i){ 
+        var color;
+        
+        //check the value of the range flag
+        if(!d.inRange)
+        {
+          return "#989898";
+        }
+        else
+        {
+          for(var i =0 ;i<data.studies.length;i++)
+          {
+            if(data.studies[i][studies_gwas_id_for_color] === search(d.name,points)[data_gwas_id_for_color])
+            {
+              color = data.studies[i][color_gwas_field];
+              return color;
+            }
+          }
+        }
+
+        
+      })
     
     node.transition()
       .duration(500)

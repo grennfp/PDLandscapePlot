@@ -5,15 +5,15 @@ updateUI <- function(session, input, output){
   for (row in 1:nrow(studies)) {
     line <- paste0(studies[row,"name"], " (<a href='", studies[row,"link"], "' target='_blank'>", studies[row,"ref"],"</a>)")
     gwas_choiceNames[row] <- list(HTML((line)))
-
+    
   }
-
+  
   updateCheckboxGroupInput(session, "gwas_buttons", label  = "",choiceNames =  gwas_choiceNames, choiceValues = studies$short_name,
                            selected = studies$short_name[1])
   
   
   updateRadioGroupButtons(session, "population_input", label ="X Axis Effect Allele Frequency:",choiceNames = as.vector(populations$name),
-                         choiceValues = as.vector(populations$data_name),selected = as.vector(populations$data_name)[1], status = "primary")
+                          choiceValues = as.vector(populations$data_name),selected = as.vector(populations$data_name)[1], status = "primary")
   
   updateRadioGroupButtons(session, "y_input", label ="Y Axis Values:", choices = as.vector(effect_sizes$name),
                           selected = as.vector(effect_sizes$name)[1], status = "primary")
