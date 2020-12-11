@@ -111,7 +111,7 @@ shinyServer(function(input, output,session) {
       
       studiesjson  <- jsonlite::toJSON(studies)
       studieslist <- rjson::fromJSON(studiesjson)
-      pdfulllist <<- list(legend = input$legend_input, log_y = input$log_y_input, log_x = input$log_x_input,x_min = x_range[1],x_max= x_range[2], y_min = y_range[1], y_max= y_range[2], annotation=input$annotation_input,y_to_use=y_to_use,x_to_use=x_to_use, canvas_height = canvas_height, canvas_width = canvas_width,points=pdlist, studies = studieslist)
+      pdfulllist <- list(legend = input$legend_input, log_y = input$log_y_input, log_x = input$log_x_input,x_min = x_range[1],x_max= x_range[2], y_min = y_range[1], y_max= y_range[2], annotation=input$annotation_input,y_to_use=y_to_use,x_to_use=x_to_use, canvas_height = canvas_height, canvas_width = canvas_width,points=pdlist, studies = studieslist)
       
       finalpdjson <- rjson::toJSON(pdfulllist)
       

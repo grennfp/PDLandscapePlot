@@ -154,7 +154,6 @@ shinyUI( tagList(fluidPage(
     )
   ),
   tags$script(src = "https://d3js.org/d3.v6.js"),
-  #https://github.com/tinker10/D3-Labeler
   tags$script(src = "labeler.js"),
   tags$script(src = "setup.js"),
   tags$script(src = "plot.js")

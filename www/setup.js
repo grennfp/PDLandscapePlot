@@ -27,8 +27,10 @@ var tooltipMap = {
   "effect allele freq (African)": "AF_afr",
   "effect allele freq (East Asian)": "AF_eas",
   "beta (Nalls et al.)":"BETA_NALLS",
+  "se (Nalls et al.)":"SE_NALLS",
   "odds ratio (Nalls et al.)": "OR_NALLS",
   "beta (Foo et al.)": "BETA_FOO",
+  "se (Foo et al.)":"SE_FOO",
   "odds ratio (Foo et al.)": "OR_FOO",
   "p-value":"P_GWAS"
 }
